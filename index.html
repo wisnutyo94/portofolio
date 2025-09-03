@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wisnu Prasetyo - Sales Consultant & Web Programmer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+    <style>
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+            background-color: #121212; /* dark background */
+            color: #d1d5db; /* gray text */
+        }
+        @keyframes glow-pink {
+            0% { box-shadow: 0 0 5px #ff009d; }
+            50% { box-shadow: 0 0 20px #ff009d; }
+            100% { box-shadow: 0 0 5px #ff009d; }
+        }
+        @keyframes slideInLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes pulse-pink {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #1f1f1f 0%, #2e2e2e 50%, #121212 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,0,157,0.1) 0%, transparent 70%);
+            animation: pulse-pink 4s infinite;
+        }
+        .glow-btn:hover {
+            animation: glow-pink 2s infinite;
+        }
+        .animate-slide-left { animation: slideInLeft 1s ease-out; }
+        .animate-slide-right { animation: slideInRight 1s ease-out 0.3s both; }
+        .animate-fade-up { animation: fadeInUp 1s ease-out; }
+        .feature-card {
+            background: linear-gradient(145deg, #2e2e2e, #1f1f1f);
+            border: 2px solid #ff009d;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #d1d5db;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(255, 0, 157, 0.774);
+        }
+        .service-item {
+            background: linear-gradient(90deg, #2e2e2e 0%, #1f1f1f 100%);
+            border-left: 4px solid #ff009d;
+            color: #d1d5db;
+        }
+        .contact-form input, .contact-form textarea {
+            background: #2e2e2e;
+            border: 2px solid #444;
+            color: #d1d5db;
+            transition: border-color 0.3s ease;
+        }
+        .contact-form input::placeholder, .contact-form textarea::placeholder {
+            color: #a1a1aa;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: #ff009d;
+            box-shadow: 0 0 10px rgba(255, 0, 157, 0.5);
+            outline: none;
+            color: #fff;
+        }
+        h1, h2, h3, h4 {
+            color: #ff009d;
+        }
+        a {
+            color: #d1d5db;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #ff66c4;
+        }
+        .scroll-snap {
+            scroll-snap-type: y mandatory;
+        }
+        .snap-section {
+            scroll-snap-align: start;
+            min-height: 100vh;
+        }
+        nav {
+            background-color: rgba(18, 18, 18, 0.9);
+        }
+        nav .text-pink {
+            color: #ff009d;
+        }
+        nav a {
+            color: #d1d5db;
+        }
+        nav a:hover {
+            color: #ff009d;
+        }
+        @media (max-width: 768px) {
+            .hero-bg { height: 100vh; }
+            .feature-card { margin-bottom: 1rem; }
+        }
+    </style>
+</head>
+<body class="bg-black text-white overflow-x-hidden scroll-snap" style="scroll-behavior: smooth;">
+    <nav class="fixed top-0 w-full backdrop-blur-md z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="text-2xl font-bold text-pink">Wisnu Prasetyo</div>
+                <div class="hidden md:block">
+                    <ul class="flex space-x-8">
+                        <li><a href="#hero" class="hover:text-pink transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-pink transition-colors">About</a></li>
+                        <li><a href="#portfolio" class="hover:text-pink transition-colors">Portfolio</a></li>
+                        <li><a href="#services" class="hover:text-pink transition-colors">Services</a></li>
+                        <li><a href="#contact" class="hover:text-pink transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <button class="md:hidden text-pink" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-[#121212] bg-opacity-90">
+            <ul class="flex flex-col items-center py-4 space-y-4">
+                <li><a href="#hero" class="hover:text-pink" onclick="toggleMenu()">Home</a></li>
+                <li><a href="#about" class="hover:text-pink" onclick="toggleMenu()">About</a></li>
+                <li><a href="#portfolio" class="hover:text-pink" onclick="toggleMenu()">Portfolio</a></li>
+                <li><a href="#services" class="hover:text-pink" onclick="toggleMenu()">Services</a></li>
+                <li><a href="#contact" class="hover:text-pink" onclick="toggleMenu()">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero-bg snap-section relative pt-16 pb-16 text-center min-h-screen flex items-center justify-center">
+        <div class="z-10 max-w-4xl mx-auto px-4 animate-fade-up">
+            <div class="mb-8">
+                <img src="https://i.ibb.co.com/mV4DFwZj/IMG-1658-brave-pink-hero-green-1312.png" alt="Futuristic portrait of Wisnu Prasetyo, a professional sales consultant and web programmer with pink holographic accents" class="mx-auto rounded-full shadow-2xl glow h-64 w-64 md:h-96 md:w-96" style="animation: glow-pink 3s infinite;" />
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 bg-clip-text text-transparent mb-4">Wisnu Prasetyo</h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-400">Sales Consultant & Web Programmer</p>
+            <p class="text-lg mb-8 text-gray-500 max-w-2xl mx-auto">Driving commercial success through innovative tech solutions and expert consulting services.</p>
+            <button onclick="scrollToSection('#about')" class="glow-btn bg-gradient-to-r from-pink-500 via-pink-600 to-pink-700 text-white px-8 py-3 rounded-full font-bold text-lg hover:from-pink-600 hover:via-pink-700 hover:to-pink-800 transition-all">Explore My Work</button>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 bg-[#1f1f1f] snap-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 animate-fade-up">
+                <h2 class="text-4xl font-bold text-pink mb-4">About Me</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Passionate sales consultant and skilled web programmer bridging the gap between technology and business needs.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="animate-slide-left md:col-span-1 bg-gradient-to-r from-[#2e2e2e] to-[#1f1f1f] p-6 rounded-lg border border-pink">
+                    <h3 class="text-2xl font-semibold text-pink mb-4">Profile</h3>
+                    <p class="text-gray-400 mb-4">Sales Consultant & Web Programmer</p>
+                    <p class="text-gray-400 mb-4">Location: Indonesia</p>
+                    <p class="text-gray-400">Expert in commercial tech solutions.</p>
+                </div>
+                <div class="animate-fade-up md:col-span-1 bg-gradient-to-r from-[#2e2e2e] to-[#1f1f1f] p-6 rounded-lg border border-pink mb-6">
+                    <h3 class="text-2xl font-semibold text-pink mb-4">Experience</h3>
+                    <div class="mb-4"><h4 class="text-lg font-bold text-gray-300">Lead Sales Consultant at TechCorp</h4><p class="text-gray-500">2020 - Present</p><p class="text-gray-400">Driving tech sales and client solutions.</p></div>
+                    <div><h4 class="text-lg font-bold text-gray-300">Web Developer at InnoTech</h4><p class="text-gray-500">2018 - 2020</p><p class="text-gray-400">Building responsive web applications.</p></div>
+                </div>
+                <div class="animate-slide-right md:col-span-1">
+                    <div class="bg-gradient-to-r from-[#2e2e2e] to-[#1f1f1f] p-6 rounded-lg border border-pink mb-6">
+                        <h3 class="text-2xl font-semibold text-pink mb-4">Skills</h3>
+                        <ul class="list-disc list-inside text-gray-400 space-y-1">
+                            <li>Sales Strategy & Consulting</li>
+                            <li>Full-Stack Web Development</li>
+                            <li>Client Relationship Management</li>
+                            <li>AI & Tech Integration</li>
+                        </ul>
+                    </div>
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/94a0ab7f-368d-46d5-975b-6d7f70dda963.png" alt="Futuristic office with holographic screens and analytics" class="rounded-lg shadow-xl" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-16 bg-[#121212] snap-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 animate-fade-up">
+                <h2 class="text-4xl font-bold text-pink mb-4">Portfolio</h2>
+                <p class="text-gray-400">Showcasing my work as a sales consultant and web programmer.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card rounded-lg p-6 text-center animate-fade-up">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b689083e-70fc-4c11-aff5-1ddf78815c37.png" alt="Sales consulting project visualization" class="rounded-lg mx-auto mb-4" />
+                    <h3 class="text-xl font-semibold mb-2">Tech Sales Campaign</h3>
+                    <p class="text-gray-400">Led a campaign boosting sales by 200% for AI tools.</p>
+                </div>
+                <div class="feature-card rounded-lg p-6 text-center animate-fade-up" style="animation-delay: 0.2s;">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/86c5a0c3-0523-42b6-8cb5-8669a139093a.png" alt="Web development project visualization" class="rounded-lg mx-auto mb-4" />
+                    <h3 class="text-xl font-semibold mb-2">E-Commerce Platform</h3>
+                    <p class="text-gray-400">Developed a responsive e-commerce site for a client.</p>
+                </div>
+                <div class="feature-card rounded-lg p-6 text-center animate-fade-up" style="animation-delay: 0.4s;">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b7bfb2f3-f9fa-4829-a043-85bcb6b0507d.png" alt="Consulting service visualization" class="rounded-lg mx-auto mb-4" />
+                    <h3 class="text-xl font-semibold mb-2">Business Strategy Advice</h3>
+                    <p class="text-gray-400">Provided consulting to optimize tech adoption.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-16 bg-[#1f1f1f] snap-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 animate-fade-up">
+                <h2 class="text-4xl font-bold text-pink mb-4">Services</h2>
+                <p class="text-gray-400">Expert services in sales consulting and web programming.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="service-item p-6 rounded-lg animate-slide-left">
+                    <h3 class="text-2xl font-semibold text-gray-200 mb-4">Sales Consulting</h3>
+                    <p class="text-gray-400">Strategic sales advice, market analysis, and client acquisition strategies for tech products.</p>
+                </div>
+                <div class="service-item p-6 rounded-lg animate-slide-right">
+                    <h3 class="text-2xl font-semibold text-gray-200 mb-4">Web Programming</h3>
+                    <p class="text-gray-400">Custom web development, responsive design, and full-stack solutions using modern technologies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 bg-[#121212] snap-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 animate-fade-up">
+                <h2 class="text-4xl font-bold text-pink mb-4">Get In Touch</h2>
+                <p class="text-gray-400">Ready to collaborate? Let's discuss your project.</p>
+            </div>
+            <div class="max-w-2xl mx-auto">
+                <form class="contact-form space-y-6">
+                    <input type="text" placeholder="Your Name" class="w-full px-4 py-3 rounded-lg" required>
+                    <input type="email" placeholder="Your Email" class="w-full px-4 py-3 rounded-lg" required>
+                    <textarea rows="5" placeholder="Your Message" class="w-full px-4 py-3 rounded-lg" required></textarea>
+                    <button type="submit" class="glow-btn bg-gradient-to-r from-pink-500 via-pink-600 to-pink-700 text-white px-8 py-3 rounded-full font-bold hover:from-pink-600 hover:via-pink-700 hover:to-pink-800 transition-all w-full">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#1f1f1f] py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-500">© 2023 Wisnu Prasetyo. All rights reserved. Pioneering the future of commerce.</p>
+        </div>
+    </footer>
+
+    <script
