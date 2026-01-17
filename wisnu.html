@@ -54,16 +54,11 @@ h1 {
   font-size: 26px;
 }
 
-/* FORM GRID */
+/* FORM */
 form {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr); /* dua kolom sama besar */
+  display: flex;
+  flex-direction: column; /* semua input full-width, satu kolom */
   gap: 16px;
-}
-
-/* FULL WIDTH */
-.full {
-  grid-column: span 1;
 }
 
 /* LABEL */
@@ -76,7 +71,7 @@ label {
 
 /* INPUT & SELECT */
 input, select {
-  width: 100%;
+  width: 100%; /* full width */
   padding: 14px;
   border-radius: 14px;
   border: 1px solid #333;
@@ -84,11 +79,11 @@ input, select {
   background-color: #222; /* gelap */
   color: #fff;
   appearance: none;
+  box-sizing: border-box;
 }
 
 /* BUTTON */
 button {
-  grid-column: span 2;
   padding: 16px;
   background-color: #000;
   color: #fff;
@@ -96,6 +91,7 @@ button {
   border-radius: 18px;
   font-size: 16px;
   cursor: pointer;
+  width: 100%; /* full width */
 }
 
 button:hover {
@@ -108,13 +104,6 @@ button:hover {
   text-align: center;
   font-size: 13px;
   color: #777;
-}
-
-/* RESPONSIF MOBILE */
-@media (max-width: 600px) {
-  form {
-    grid-template-columns: 1fr; /* 1 kolom di HP */
-  }
 }
 </style>
 </head>
