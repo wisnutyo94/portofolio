@@ -2,6 +2,10 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+
+<!-- WAJIB AGAR RESPONSIVE -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Booking Barba Barbershop</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
@@ -23,21 +27,23 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
+  padding:20px;
 }
 
 .container{
-  width:90%;
+  width:100%;
   max-width:1000px;
-  padding:50px 40px;
+  padding:40px 30px;
 }
 
 h1{
   text-align:center;
   margin-bottom:40px;
   font-weight:700;
+  font-size:32px;
 }
 
-/* ===== FORM GRID ===== */
+/* ===== FORM GRID (DESKTOP) ===== */
 .form-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -113,10 +119,32 @@ footer{
   color:#aaa;
 }
 
-/* ===== RESPONSIVE ===== */
+/* =========================
+   📱 MOBILE RESPONSIVE
+   ========================= */
 @media(max-width:900px){
+  h1{
+    font-size:26px;
+    margin-bottom:30px;
+  }
+
+  .container{
+    padding:30px 20px;
+  }
+
   .form-grid{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr; /* jadi 1 kolom di HP */
+    gap:16px;
+  }
+
+  input, select{
+    padding:14px 22px;
+    font-size:14px;
+  }
+
+  button{
+    padding:16px;
+    font-size:15px;
   }
 }
 </style>
