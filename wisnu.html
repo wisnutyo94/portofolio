@@ -19,7 +19,7 @@
 
 /* BODY HITAM PERMANEN */
 body {
-  background-color: #000; /* background hitam */
+  background-color: #000 !important; /* background hitam */
   color: #fff;
   padding: 20px;
 }
@@ -28,7 +28,7 @@ body {
 .container {
   max-width: 720px;
   margin: auto;
-  background-color: #111; /* kotak tetap gelap */
+  background-color: #111 !important; /* kotak tetap gelap */
   padding: 30px;
   border-radius: 22px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -57,7 +57,7 @@ h1 {
 /* FORM */
 form {
   display: flex;
-  flex-direction: column; /* semua input full-width, satu kolom */
+  flex-direction: column; /* semua input vertikal */
   gap: 16px;
 }
 
@@ -70,16 +70,28 @@ label {
 }
 
 /* INPUT & SELECT */
-input, select {
+input, select, textarea {
   width: 100%; /* full width */
   padding: 14px;
   border-radius: 14px;
   border: 1px solid #333;
   font-size: 15px;
-  background-color: #222; /* gelap */
-  color: #fff;
+  background-color: #222 !important; /* gelap */
+  color: #fff !important;
   appearance: none;
+  -webkit-appearance: none;
   box-sizing: border-box;
+}
+
+/* DATE PICKER */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* buat icon kalender putih */
+}
+
+/* AUTOFILL CHROME */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #222 inset !important;
+  -webkit-text-fill-color: #fff !important;
 }
 
 /* BUTTON */
