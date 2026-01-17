@@ -17,7 +17,7 @@
   padding: 0;
 }
 
-/* BODY HITAM PERMANEN */
+/* BODY HITAM */
 body {
   background-color: #000 !important;
   color: #fff;
@@ -28,18 +28,18 @@ body {
 .container {
   max-width: 720px;
   margin: auto;
-  background-color: #111 !important; /* gelap */
+  background-color: #111 !important; 
   padding: 30px;
   border-radius: 22px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* LOGO - background sama dengan container */
+/* LOGO */
 .logo {
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
-  background-color: transparent; /* sama dengan container */
+  background-color: transparent;
   padding: 10px 0;
 }
 
@@ -83,7 +83,7 @@ input, select, textarea {
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
-  height: 50px; /* semua box sama tinggi */
+  height: 50px;
   line-height: 22px; 
 }
 
@@ -101,17 +101,19 @@ input:-webkit-autofill {
 /* BUTTON */
 button {
   padding: 16px;
-  background-color: #000;
-  color: #fff;
+  background-color: #fff; /* putih */
+  color: #000; /* teks hitam */
   border: none;
   border-radius: 18px;
   font-size: 16px;
   cursor: pointer;
   width: 100%;
+  font-weight: bold;
+  transition: opacity 0.2s;
 }
 
 button:hover {
-  opacity: 0.85;
+  opacity: 0.8;
 }
 
 /* FOOTER */
@@ -144,7 +146,7 @@ button:hover {
 
     <div>
       <label>Nomor Whatsapp</label>
-      <input type="text" name="whatsapp" required>
+      <input type="text" name="whatsapp" required pattern="[0-9]{10,15}">
     </div>
 
     <div>
@@ -190,7 +192,7 @@ button:hover {
       </select>
     </div>
 
-    <button type="submit">Kirim Booking</button>
+    <button type="submit">Booking Sekarang</button>
 
   </form>
 
@@ -201,18 +203,34 @@ button:hover {
 </div>
 
 <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbz_0A1AuIIDTWaQ3U43GJ9dV7sTP3eJBETzyp5Ab3WcJh3udSqUo5YeIa0hZNwrbbcIiQ/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz_0A1AuIIDTWaQ3U43GJ9dV7sTP3eJBETzyp5Ab3WcJh3udSqUo5YeIa0hZNwrbbcIiQ/exec";
+const WA_ADMIN = "6285163010608";
 
 document.getElementById("bookingForm").addEventListener("submit", e => {
   e.preventDefault();
   const formData = new FormData(e.target);
 
-  fetch(scriptURL, {
+  const nama = formData.get("nama");
+  const whatsapp = formData.get("whatsapp").replace(/\D/g,''); // hanya angka
+  const email = formData.get("email");
+  const kapster = formData.get("kapster");
+  const layanan = formData.get("layanan");
+  const tanggal = formData.get("tanggal");
+  const jam = formData.get("jam");
+
+  // Pesan WA ke admin
+  const pesan = `Halo, saya ${nama} (${whatsapp}) ingin booking ${layanan} dengan ${kapster} pada ${tanggal} jam ${jam}.`;
+
+  // Buka WA Admin
+  window.open(`https://wa.me/${WA_ADMIN}?text=${encodeURIComponent(pesan)}`, "_blank");
+
+  // Optional: Kirim juga ke Google Sheet
+  fetch(WEB_APP_URL, {
     method: "POST",
     body: formData
   })
-  .then(res => alert("Booking berhasil dikirim"))
-  .catch(err => alert("Gagal mengirim data"));
+  .then(res => console.log("Data tersimpan di Sheet"))
+  .catch(err => console.log("Gagal kirim ke Sheet"));
 });
 </script>
 
