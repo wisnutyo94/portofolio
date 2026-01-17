@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
-/* GLOBAL RESET & FONT */
+/* RESET & FONT */
 * {
   box-sizing: border-box;
   font-family: 'Merriweather', serif;
@@ -19,7 +19,7 @@
 
 /* BODY HITAM PERMANEN */
 body {
-  background-color: #000 !important; /* background hitam */
+  background-color: #000 !important;
   color: #fff;
   padding: 20px;
 }
@@ -28,17 +28,19 @@ body {
 .container {
   max-width: 720px;
   margin: auto;
-  background-color: #111 !important; /* kotak tetap gelap */
+  background-color: #111 !important; /* gelap */
   padding: 30px;
   border-radius: 22px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* LOGO */
+/* LOGO - background sama dengan container */
 .logo {
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
+  background-color: transparent; /* sama dengan container */
+  padding: 10px 0;
 }
 
 .logo img {
@@ -57,7 +59,7 @@ h1 {
 /* FORM */
 form {
   display: flex;
-  flex-direction: column; /* semua input vertikal */
+  flex-direction: column;
   gap: 16px;
 }
 
@@ -69,23 +71,25 @@ label {
   color: #fff;
 }
 
-/* INPUT & SELECT */
+/* INPUT, SELECT, DATE */
 input, select, textarea {
-  width: 100%; /* full width */
+  width: 100%;
   padding: 14px;
   border-radius: 14px;
   border: 1px solid #333;
   font-size: 15px;
-  background-color: #222 !important; /* gelap */
+  background-color: #222 !important;
   color: #fff !important;
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
+  height: 50px; /* semua box sama tinggi */
+  line-height: 22px; 
 }
 
-/* DATE PICKER */
+/* DATE PICKER ICON */
 input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1); /* buat icon kalender putih */
+  filter: invert(1);
 }
 
 /* AUTOFILL CHROME */
@@ -103,7 +107,7 @@ button {
   border-radius: 18px;
   font-size: 16px;
   cursor: pointer;
-  width: 100%; /* full width */
+  width: 100%;
 }
 
 button:hover {
