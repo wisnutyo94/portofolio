@@ -1,158 +1,205 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Booking Barba Barber</title>
+  <meta charset="UTF-8" />
 
-<link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+  <!-- FIX SAFARI AGAR TIDAK KECIL -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-<style>
-*{
-  box-sizing:border-box;
-  font-family:'Merriweather',serif;
-}
+  <title>Booking Barba Barber</title>
 
-body{
-  background:#000;
-  color:#fff;
-  padding:30px;
-}
+  <!-- FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 
-.container{
-  max-width:700px;
-  margin:auto;
-  background:#111;
-  padding:30px;
-  border-radius:24px;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Merriweather', serif;
+    }
 
-h2{
-  text-align:center;
-  margin-bottom:25px;
-}
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+      color: #000;
+    }
 
-form{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:15px;
-}
+    .container {
+      max-width: 720px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
 
-input, select{
-  width:100%;
-  padding:14px 18px;
-  border-radius:18px;
-  border:none;
-  font-size:14px;
-}
+    .logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
 
-button{
-  grid-column:span 2;
-  padding:15px;
-  border-radius:20px;
-  border:none;
-  font-size:16px;
-  cursor:pointer;
-  background:#fff;
-  color:#000;
-}
+    .logo img {
+      max-width: 140px;
+      width: 100%;
+      height: auto;
+    }
 
-.footer{
-  text-align:center;
-  margin-top:25px;
-  font-size:12px;
-  opacity:.6;
-}
-</style>
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 26px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .full {
+      grid-column: span 2;
+    }
+
+    label {
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      background: #fff;
+      appearance: none;
+    }
+
+    input[type="date"] {
+      appearance: auto;
+    }
+
+    button {
+      grid-column: span 2;
+      padding: 16px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 18px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    .powered {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 13px;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      form {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <div class="container">
-<h2>Booking Barba Barber</h2>
 
-<form id="bookingForm">
-  <input name="nama_lengkap" placeholder="Nama Lengkap" required>
-  <input name="nomor_whatsapp" placeholder="Nomor Whatsapp" required>
+  <!-- LOGO -->
+  <div class="logo">
+    <img src="https://i.imgur.com/DssgKKJ.png" alt="Barba Barber Logo">
+  </div>
 
-  <input type="email" name="email" placeholder="Email" required>
+  <h1>Booking Barba Barber</h1>
 
-  <select name="pilih_layanan" required>
-    <option value="">Pilih Layanan</option>
-    <option>Haircut</option>
-    <option>Haircut + Beard</option>
-    <option>Premium</option>
-  </select>
+  <form id="bookingForm">
 
-  <input type="date" name="pilih_tanggal" id="tanggal" required>
+    <div>
+      <label>Nama Lengkap</label>
+      <input type="text" name="nama" required>
+    </div>
 
-  <select name="pilih_jam" required>
-    <option value="">Pilih Jam</option>
-    <option>11.00-12.00</option>
-    <option>13.00-14.00</option>
-    <option>15.00-16.00</option>
-    <option>17.00-18.00</option>
-    <option>19.00-20.00</option>
-    <option>21.00-22.00</option>
-  </select>
+    <div>
+      <label>Nomor Whatsapp</label>
+      <input type="text" name="whatsapp" required>
+    </div>
 
-  <button type="submit">Booking Sekarang</button>
-</form>
+    <div>
+      <label>Email</label>
+      <input type="email" name="email" required>
+    </div>
 
-<div class="footer">
-Powered by Barba Barber © 2026
-</div>
+    <div>
+      <label>Pilih Kapster</label>
+      <select name="kapster" required>
+        <option value="">-- Pilih Kapster --</option>
+        <option>Bayu</option>
+        <option>Joel</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Pilih Layanan</label>
+      <select name="layanan" required>
+        <option value="">-- Pilih Layanan --</option>
+        <option>Regular Haircut - 50k</option>
+        <option>Coloring - 200k</option>
+        <option>Coloring - 300k</option>
+        <option>Coloring - 400k</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Pilih Tanggal</label>
+      <input type="date" name="tanggal" required>
+    </div>
+
+    <div>
+      <label>Pilih Jam</label>
+      <select name="jam" required>
+        <option value="">-- Pilih Jam --</option>
+        <option>11.00 - 12.00</option>
+        <option>13.00 - 14.00</option>
+        <option>15.00 - 16.00</option>
+        <option>17.00 - 18.00</option>
+        <option>19.00 - 20.00</option>
+        <option>21.00 - 22.00</option>
+      </select>
+    </div>
+
+    <button type="submit">Kirim Booking</button>
+
+  </form>
+
+  <div class="powered">
+    Powered by Barba Barber © 2026
+  </div>
+
 </div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz_0A1AuIIDTWaQ3U43GJ9dV7sTP3eJBETzyp5Ab3WcJh3udSqUo5YeIa0hZNwrbbcIiQ/exec
-";
-const WA_ADMIN = "6285163010608";
-
-// Disable tanggal lewat
-document.getElementById("tanggal").min =
-  new Date().toISOString().split("T")[0];
+const scriptURL = "https://script.google.com/macros/s/AKfycbz_0A1AuIIDTWaQ3U43GJ9dV7sTP3eJBETzyp5Ab3WcJh3udSqUo5YeIa0hZNwrbbcIiQ/exec";
 
 document.getElementById("bookingForm").addEventListener("submit", e => {
   e.preventDefault();
-  const f = e.target;
+  const formData = new FormData(e.target);
 
-  const data = {
-    nama_lengkap: f.nama_lengkap.value,
-    nomor_whatsapp: f.nomor_whatsapp.value,
-    email: f.email.value,
-    pilih_layanan: f.pilih_layanan.value,
-    pilih_tanggal: f.pilih_tanggal.value,
-    pilih_jam: f.pilih_jam.value
-  };
-
-  fetch(WEB_APP_URL, {
+  fetch(scriptURL, {
     method: "POST",
-    body: JSON.stringify(data)
+    body: formData
   })
-  .then(res => res.json())
-  .then(res => {
-    if (res.status === "failed") {
-      alert(res.message);
-      return;
-    }
-
-    const msg = encodeURIComponent(
-`Booking Baru Barba Barber
-
-Nama: ${data.nama_lengkap}
-WA: ${data.nomor_whatsapp}
-Email: ${data.email}
-Layanan: ${data.pilih_layanan}
-Tanggal: ${data.pilih_tanggal}
-Jam: ${data.pilih_jam}`
-    );
-
-    window.open(`https://wa.me/${WA_ADMIN}?text=${msg}`, "_blank");
-    alert("Booking berhasil!");
-    f.reset();
-  })
-  .catch(() => alert("Gagal mengirim data"));
+  .then(res => alert("Booking berhasil dikirim"))
+  .catch(err => alert("Gagal mengirim data"));
 });
 </script>
 
