@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Booking Barba Barber</title>
+<title>Booking De'Barba Barber</title>
 
 <!-- FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
-/* RESET & FONT */
 * {
   box-sizing: border-box;
   font-family: 'Merriweather', serif;
@@ -17,14 +16,12 @@
   padding: 0;
 }
 
-/* BODY HITAM */
 body {
   background-color: #000 !important;
   color: #fff;
   padding: 20px;
 }
 
-/* CONTAINER */
 .container {
   max-width: 720px;
   margin: auto;
@@ -34,7 +31,6 @@ body {
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* LOGO */
 .logo {
   display: flex;
   justify-content: center;
@@ -49,21 +45,18 @@ body {
   height: auto;
 }
 
-/* JUDUL */
 h1 {
   text-align: center;
   margin-bottom: 25px;
   font-size: 26px;
 }
 
-/* FORM */
 form {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-/* LABEL */
 label {
   font-size: 14px;
   margin-bottom: 6px;
@@ -71,7 +64,6 @@ label {
   color: #fff;
 }
 
-/* INPUT, SELECT, DATE */
 input, select, textarea {
   width: 100%;
   padding: 14px;
@@ -87,22 +79,19 @@ input, select, textarea {
   line-height: 22px; 
 }
 
-/* DATE PICKER ICON */
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
 
-/* AUTOFILL CHROME */
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px #222 inset !important;
   -webkit-text-fill-color: #fff !important;
 }
 
-/* BUTTON */
 button {
   padding: 16px;
-  background-color: #fff; /* putih */
-  color: #000; /* teks hitam */
+  background-color: #fff;
+  color: #000;
   border: none;
   border-radius: 18px;
   font-size: 16px;
@@ -116,7 +105,6 @@ button:hover {
   opacity: 0.8;
 }
 
-/* FOOTER */
 .powered {
   margin-top: 25px;
   text-align: center;
@@ -130,23 +118,22 @@ button:hover {
 
 <div class="container">
 
-  <!-- LOGO -->
   <div class="logo">
     <img src="https://i.imgur.com/DssgKKJ.png" alt="Barba Barber Logo">
   </div>
 
-  <h1>Booking Barba Barber</h1>
+  <h1>Booking De'Barba Barber</h1>
 
-  <form id="bookingForm">
+  <form id="bookingForm" name="bookingForm">
 
     <div>
       <label>Nama Lengkap</label>
-      <input type="text" name="nama" required>
+      <input type="text" name="nama_lengkap" required>
     </div>
 
     <div>
       <label>Nomor Whatsapp</label>
-      <input type="text" name="whatsapp" required pattern="[0-9]{10,15}">
+      <input type="text" name="nomor_whatsapp" required pattern="[0-9]{10,15}">
     </div>
 
     <div>
@@ -156,7 +143,7 @@ button:hover {
 
     <div>
       <label>Pilih Kapster</label>
-      <select name="kapster" required>
+      <select name="pilih_kapster" required>
         <option value="">-- Pilih Kapster --</option>
         <option>Bayu</option>
         <option>Joel</option>
@@ -165,7 +152,7 @@ button:hover {
 
     <div>
       <label>Pilih Layanan</label>
-      <select name="layanan" required>
+      <select name="pilih_layanan" required>
         <option value="">-- Pilih Layanan --</option>
         <option>Regular Haircut - 50k</option>
         <option>Coloring - 200k</option>
@@ -176,12 +163,12 @@ button:hover {
 
     <div>
       <label>Pilih Tanggal</label>
-      <input type="date" name="tanggal" required>
+      <input type="date" name="pilih_tanggal" required>
     </div>
 
     <div>
       <label>Pilih Jam</label>
-      <select name="jam" required>
+      <select name="pilih_jam" required>
         <option value="">-- Pilih Jam --</option>
         <option>11.00 - 12.00</option>
         <option>13.00 - 14.00</option>
@@ -197,7 +184,7 @@ button:hover {
   </form>
 
   <div class="powered">
-    Powered by Barba Barber © 2026
+    Powered by De'Barba Barber © 2026
   </div>
 
 </div>
@@ -208,23 +195,33 @@ const WA_ADMIN = "6285163010608";
 
 document.getElementById("bookingForm").addEventListener("submit", e => {
   e.preventDefault();
-  const formData = new FormData(e.target);
+  const f = e.target;
 
-  const nama = formData.get("nama");
-  const whatsapp = formData.get("whatsapp").replace(/\D/g,''); // hanya angka
-  const email = formData.get("email");
-  const kapster = formData.get("kapster");
-  const layanan = formData.get("layanan");
-  const tanggal = formData.get("tanggal");
-  const jam = formData.get("jam");
+  const data = {
+    nama_lengkap: f.nama_lengkap.value,
+    nomor_whatsapp: f.nomor_whatsapp.value.replace(/\D/g,''),
+    email: f.email.value,
+    pilih_kapster: f.pilih_kapster.value,
+    pilih_layanan: f.pilih_layanan.value,
+    pilih_tanggal: f.pilih_tanggal.value,
+    pilih_jam: f.pilih_jam.value
+  };
 
-  // Pesan WA ke admin
-  const pesan = `Halo, saya ${nama} (${whatsapp}) ingin booking ${layanan} dengan ${kapster} pada ${tanggal} jam ${jam}.`;
+  // Pesan WA dalam format list
+  const pesan = 
+`Booking De' Barba Barbershop
+Nama: ${data.nama_lengkap}
+Nomor Whatsapp: ${data.nomor_whatsapp}
+Kapster: ${data.pilih_kapster}
+Layanan: ${data.pilih_layanan}
+Tanggal: ${data.pilih_tanggal}
+Jam: ${data.pilih_jam}`;
 
   // Buka WA Admin
   window.open(`https://wa.me/${WA_ADMIN}?text=${encodeURIComponent(pesan)}`, "_blank");
 
-  // Optional: Kirim juga ke Google Sheet
+  // Kirim data ke Google Sheet
+  const formData = new FormData(f);
   fetch(WEB_APP_URL, {
     method: "POST",
     body: formData
