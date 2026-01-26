@@ -4,240 +4,150 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Booking De'Barba Barber</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
-* {
-  box-sizing: border-box;
-  font-family: 'Merriweather', serif;
+* {box-sizing:border-box;font-family:'Merriweather',serif;}
+body {background:#000;color:#fff;padding:20px;}
+.container {max-width:640px;margin:auto;background:#111;padding:30px;border-radius:20px;}
+h1{text-align:center;margin-bottom:25px}
+.form-group{margin-bottom:14px}
+label{font-size:13px;margin-bottom:5px;display:block}
+input,select{
+  width:100%;
+  height:46px;
+  padding:10px 14px;
+  border-radius:12px;
+  border:1px solid #333;
+  background:#222;
+  color:#fff;
+  font-size:14px;
 }
-
-body {
-  background: #000;
-  color: #fff;
-  padding: 20px;
-}
-
-.container {
-  max-width: 640px;
-  margin: auto;
-  background: #111;
-  padding: 30px;
-  border-radius: 20px;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-.form-group {
-  margin-bottom: 14px;
-}
-
-label {
-  font-size: 13px;
-  margin-bottom: 5px;
-  display: block;
-}
-
-input, select {
-  width: 100%;
-  height: 46px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: 1px solid #333;
-  background: #222;
-  color: #fff;
-  font-size: 14px;
-  appearance: none;
-}
-
-input[type="date"] {
-  line-height: 46px;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-}
-
-select option:disabled {
-  color: #888;
-}
-
-button {
-  width: 100%;
-  padding: 14px;
-  background: #fff;
-  color: #000;
-  border: none;
-  border-radius: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.powered {
-  text-align: center;
-  font-size: 12px;
-  color: #777;
-  margin-top: 20px;
-}
+input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1)}
+select option:disabled{color:#888}
+button{width:100%;padding:14px;background:#fff;color:#000;border:none;border-radius:14px;font-weight:bold;cursor:pointer;margin-top:10px}
+.powered{text-align:center;font-size:12px;color:#777;margin-top:20px}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-  <h1>Booking De'Barba Barber</h1>
+<h1>Booking De'Barba Barber</h1>
 
-  <form id="bookingForm">
+<form id="bookingForm">
 
-    <div class="form-group">
-      <label>Nama Lengkap</label>
-      <input type="text" name="nama_lengkap" required>
-    </div>
+<div class="form-group">
+<label>Nama Lengkap</label>
+<input type="text" name="nama_lengkap" required>
+</div>
 
-    <div class="form-group">
-      <label>Nomor Whatsapp</label>
-      <input type="text" name="nomor_whatsapp" required>
-    </div>
+<div class="form-group">
+<label>Nomor Whatsapp</label>
+<input type="text" name="nomor_whatsapp" required>
+</div>
 
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" name="email" required>
-    </div>
+<div class="form-group">
+<label>Email</label>
+<input type="email" name="email" required>
+</div>
 
-    <div class="form-group">
-      <label>Pilih Kapster</label>
-      <select name="pilih_kapster" required>
-        <option value="">-- Pilih Kapster --</option>
-        <option>Bayu "Boy"</option>
-        <option>Joel</option>
-      </select>
-    </div>
+<div class="form-group">
+<label>Pilih Kapster</label>
+<select name="pilih_kapster" required>
+<option value="">-- Pilih Kapster --</option>
+<option>Bayu "Boy"</option>
+<option>Joel "Ucup"</option>
+</select>
+</div>
 
-    <div class="form-group">
-      <label>Pilih Layanan</label>
-      <select name="pilih_layanan" required>
-        <option value="">-- Pilih Layanan --</option>
-        <option>Regular Haircut - 50k</option>
-        <option>Coloring - 200k</option>
-        <option>Coloring - 300k</option>
-        <option>Coloring - 400k</option>
-      </select>
-    </div>
+<div class="form-group">
+<label>Pilih Layanan</label>
+<select name="pilih_layanan" required>
+<option value="">-- Pilih Layanan --</option>
+<option>Regular Haircut - 50k</option>
+<option>Coloring - 200k</option>
+<option>Coloring - 300k</option>
+<option>Coloring - 400k</option>
+</select>
+</div>
 
-    <div class="form-group">
-      <label>Pilih Tanggal</label>
-      <input type="date" name="pilih_tanggal" id="tanggal" required>
-    </div>
+<div class="form-group">
+<label>Pilih Tanggal</label>
+<input type="date" id="tanggal" name="pilih_tanggal" required>
+</div>
 
-    <div class="form-group">
-      <label>Pilih Jam</label>
-      <select name="pilih_jam" id="jam" required>
-        <option value="">-- Pilih Jam --</option>
-      </select>
-    </div>
+<div class="form-group">
+<label>Pilih Jam</label>
+<select id="jam" name="pilih_jam" required>
+<option value="">-- Pilih Jam --</option>
+</select>
+</div>
 
-    <button type="submit">Booking NOW</button>
-  </form>
+<button type="submit">Booking Sekarang</button>
+</form>
 
-  <div class="powered">Powered by De'Barba Barber © 2026</div>
+<div class="powered">Powered by De'Barba Barber © 2026</div>
 </div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyE_COU2g1rgzF5Ggn4tXzrpf6r4l7rFSdYH-eftvXYjgkzZL9sMrqR3WKMV3Ven9C2/exec"; 
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyE_COU2g1rgzF5Ggn4tXzrpf6r4l7rFSdYH-eftvXYjgkzZL9sMrqR3WKMV3Ven9C2/exec";
 const NO_ADMIN_WA = "6285706706607";
 
-const form = document.getElementById("bookingForm");
+const jamList = [];
+for(let i=11;i<=23;i++) jamList.push(i.toString().padStart(2,"0")+".00");
+
 const tanggalInput = document.getElementById("tanggal");
 const jamSelect = document.getElementById("jam");
+const form = document.getElementById("bookingForm");
 
-// Jam 11.00 - 23.00
-const jamList = [];
-for (let i = 11; i <= 23; i++) jamList.push(i.toString().padStart(2,"0") + ".00");
+tanggalInput.min = new Date().toISOString().split("T")[0];
 
-// Disable tanggal sebelum hari ini
-const today = new Date().toISOString().split("T")[0];
-tanggalInput.min = today;
-
-// Cache booked data
-let bookedCache = {};
-
-// Load booked data sekali
-async function initBooked() {
-  try {
-    const res = await fetch(WEB_APP_URL);
-    bookedCache = await res.json();
-  } catch (e) {
-    bookedCache = {};
-  }
+async function getBooked(){
+  const res = await fetch(WEB_APP_URL);
+  return await res.json();
 }
 
-// Update jam berdasarkan tanggal
-function updateJam() {
-  const tanggal = tanggalInput.value;
-  jamSelect.innerHTML = `<option value="">-- Pilih Jam --</option>`;
+async function updateJam(){
+  const tgl = tanggalInput.value;
+  if(!tgl) return;
 
-  if (!tanggal || !bookedCache) return;
+  jamSelect.innerHTML = "<option>Loading...</option>";
 
-  const bookedJam = bookedCache[tanggal] || [];
+  const booked = await getBooked();
+  const bookedJam = booked[tgl] || [];
 
-  jamList.forEach(jam => {
+  jamSelect.innerHTML = '<option value="">-- Pilih Jam --</option>';
+
+  jamList.forEach(jam=>{
     const opt = document.createElement("option");
     opt.value = jam;
-
-    if (bookedJam.includes(jam)) {
-      opt.textContent = jam + " (Booked)";
+    if(bookedJam.includes(jam)){
+      opt.textContent = jam+" (Booked)";
       opt.disabled = true;
     } else {
       opt.textContent = jam;
     }
-
     jamSelect.appendChild(opt);
   });
 }
 
 tanggalInput.addEventListener("change", updateJam);
 
-// Submit Booking + Redirect WA
-form.addEventListener("submit", async (e) => {
+form.addEventListener("submit", async e=>{
   e.preventDefault();
   const data = new FormData(form);
 
-  try {
-    const res = await fetch(WEB_APP_URL, {
-      method: "POST",
-      body: data
-    });
+  await fetch(WEB_APP_URL,{method:"POST",body:data});
 
-    if (!res.ok) throw new Error("Gagal simpan");
+  const text = `BOOKING BARU!\n\nNama: ${data.get("nama_lengkap")}\nWA: ${data.get("nomor_whatsapp")}\nLayanan: ${data.get("pilih_layanan")}\nTanggal: ${data.get("pilih_tanggal")}\nJam: ${data.get("pilih_jam")}`;
 
-    const nama = data.get("nama_lengkap");
-    const wa = data.get("nomor_whatsapp");
-    const layanan = data.get("pilih_layanan");
-    const tanggal = data.get("pilih_tanggal");
-    const jam = data.get("pilih_jam");
+  window.open(`https://wa.me/${NO_ADMIN_WA}?text=${encodeURIComponent(text)}`,"_blank");
 
-    const text = `BOOKING BARU DE'BARBA BARBER\n\nNama: ${nama}\nWA: ${wa}\nLayanan: ${layanan}\nTanggal: ${tanggal}\nJam: ${jam}`;
-
-    const waLink = /Android|iPhone|iPad/i.test(navigator.userAgent)
-      ? `https://wa.me/${NO_ADMIN_WA}?text=${encodeURIComponent(text)}`
-      : `https://web.whatsapp.com/send?phone=${NO_ADMIN_WA}&text=${encodeURIComponent(text)}`;
-
-    alert("Booking berhasil! Mengarahkan ke WhatsApp Admin De'Barba Barbershop");
-    window.location.href = waLink;
-
-  } catch (err) {
-    alert("Booking gagal! Coba ulangi.");
-    console.error(err);
-  }
+  alert("Booking berhasil!");
+  form.reset();
+  jamSelect.innerHTML='<option value="">-- Pilih Jam --</option>';
 });
-
-// Init load
-initBooked();
 </script>
 
 </body>
