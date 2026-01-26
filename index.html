@@ -4,18 +4,44 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Booking De'Barba Barber</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
 * {box-sizing:border-box;font-family:'Merriweather',serif;}
-body {background:#000;color:#fff;padding:20px;}
-.container {max-width:640px;margin:auto;background:#111;padding:30px;border-radius:20px;}
-h1{text-align:center;margin-bottom:25px}
-.form-group{margin-bottom:14px}
-label{font-size:13px;margin-bottom:5px;display:block}
-input,select{
+
+body {
+  background:#000;
+  color:#fff;
+  padding:20px;
+}
+
+.container {
+  max-width:640px;
+  margin:auto;
+  background:#111;
+  padding:30px;
+  border-radius:20px;
+}
+
+h1 {
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.form-group {
+  margin-bottom:14px;
+}
+
+label {
+  font-size:13px;
+  margin-bottom:5px;
+  display:block;
+}
+
+input, select {
   width:100%;
-  height:46px;
+  height:46px;              /* semua box sama */
   padding:10px 14px;
   border-radius:12px;
   border:1px solid #333;
@@ -23,10 +49,37 @@ input,select{
   color:#fff;
   font-size:14px;
 }
-input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(1)}
-select option:disabled{color:#888}
-button{width:100%;padding:14px;background:#fff;color:#000;border:none;border-radius:14px;font-weight:bold;cursor:pointer;margin-top:10px}
-.powered{text-align:center;font-size:12px;color:#777;margin-top:20px}
+
+input[type="date"] {
+  line-height:46px;         /* biar sama dengan input lain */
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter:invert(1);
+}
+
+select option:disabled {
+  color:#888;
+}
+
+button {
+  width:100%;
+  padding:14px;
+  background:#fff;
+  color:#000;
+  border:none;
+  border-radius:14px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.powered {
+  text-align:center;
+  font-size:12px;
+  color:#777;
+  margin-top:20px;
+}
 </style>
 </head>
 
@@ -57,7 +110,7 @@ button{width:100%;padding:14px;background:#fff;color:#000;border:none;border-rad
 <select name="pilih_kapster" required>
 <option value="">-- Pilih Kapster --</option>
 <option>Bayu "Boy"</option>
-<option>Joel "Ucup"</option>
+<option>Joel "Joe"</option>
 </select>
 </div>
 
@@ -84,14 +137,14 @@ button{width:100%;padding:14px;background:#fff;color:#000;border:none;border-rad
 </select>
 </div>
 
-<button type="submit">Booking Sekarang</button>
+<button type="submit">Booking Now</button>
 </form>
 
 <div class="powered">Powered by De'Barba Barber © 2026</div>
 </div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyE_COU2g1rgzF5Ggn4tXzrpf6r4l7rFSdYH-eftvXYjgkzZL9sMrqR3WKMV3Ven9C2/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyE_COU2g1rgzF5Ggn4tXzrpf6r4l7rFSdYH-eftvXYjgkzZL9sMrqR3WKMV3Ven9C2/exec"; 
 const NO_ADMIN_WA = "6285706706607";
 
 const jamList = [];
@@ -122,12 +175,14 @@ async function updateJam(){
   jamList.forEach(jam=>{
     const opt = document.createElement("option");
     opt.value = jam;
+
     if(bookedJam.includes(jam)){
-      opt.textContent = jam+" (Booked)";
+      opt.textContent = jam + " (Booked)";
       opt.disabled = true;
     } else {
       opt.textContent = jam;
     }
+
     jamSelect.appendChild(opt);
   });
 }
@@ -138,15 +193,20 @@ form.addEventListener("submit", async e=>{
   e.preventDefault();
   const data = new FormData(form);
 
-  await fetch(WEB_APP_URL,{method:"POST",body:data});
+  try {
+    await fetch(WEB_APP_URL,{method:"POST",body:data});
 
-  const text = `BOOKING BARU!\n\nNama: ${data.get("nama_lengkap")}\nWA: ${data.get("nomor_whatsapp")}\nLayanan: ${data.get("pilih_layanan")}\nTanggal: ${data.get("pilih_tanggal")}\nJam: ${data.get("pilih_jam")}`;
+    const text = `BOOKING BARU!\n\nNama: ${data.get("nama_lengkap")}\nWA: ${data.get("nomor_whatsapp")}\nKapster: ${data.get("pilih_kapster")}\nLayanan: ${data.get("pilih_layanan")}\nTanggal: ${data.get("pilih_tanggal")}\nJam: ${data.get("pilih_jam")}`;
 
-  window.open(`https://wa.me/${NO_ADMIN_WA}?text=${encodeURIComponent(text)}`,"_blank");
+    const waLink = /Android|iPhone|iPad/i.test(navigator.userAgent)
+      ? `https://wa.me/${NO_ADMIN_WA}?text=${encodeURIComponent(text)}`
+      : `https://web.whatsapp.com/send?phone=${NO_ADMIN_WA}&text=${encodeURIComponent(text)}`;
 
-  alert("Booking berhasil!");
-  form.reset();
-  jamSelect.innerHTML='<option value="">-- Pilih Jam --</option>';
+    window.location.href = waLink;
+
+  } catch {
+    alert("Gagal booking!");
+  }
 });
 </script>
 
