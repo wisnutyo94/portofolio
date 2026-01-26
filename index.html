@@ -20,7 +20,7 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 640px;
   margin: auto;
   background: #111;
   padding: 30px;
@@ -32,6 +32,10 @@ h1 {
   margin-bottom: 25px;
 }
 
+.form-group {
+  margin-bottom: 15px;
+}
+
 label {
   font-size: 14px;
   margin-bottom: 6px;
@@ -40,20 +44,25 @@ label {
 
 input, select {
   width: 100%;
-  padding: 12px;
+  height: 48px;
+  padding: 10px 14px;
   border-radius: 12px;
   border: 1px solid #333;
   background: #222;
   color: #fff;
-  margin-bottom: 15px;
-  height: 48px;
+  font-size: 14px;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
 
+select option:disabled {
+  color: #999;
+}
+
 button {
+  width: 100%;
   padding: 14px;
   background: #fff;
   color: #000;
@@ -61,10 +70,7 @@ button {
   border-radius: 14px;
   font-weight: bold;
   cursor: pointer;
-}
-
-option:disabled {
-  color: #999;
+  margin-top: 10px;
 }
 
 .powered {
@@ -82,38 +88,53 @@ option:disabled {
   <h1>Booking De'Barba Barber</h1>
 
   <form id="bookingForm">
-    <label>Nama Lengkap</label>
-    <input type="text" name="nama_lengkap" required>
 
-    <label>Nomor Whatsapp</label>
-    <input type="text" name="nomor_whatsapp" required>
+    <div class="form-group">
+      <label>Nama Lengkap</label>
+      <input type="text" name="nama_lengkap" required>
+    </div>
 
-    <label>Email</label>
-    <input type="email" name="email" required>
+    <div class="form-group">
+      <label>Nomor Whatsapp</label>
+      <input type="text" name="nomor_whatsapp" required>
+    </div>
 
-    <label>Pilih Kapster</label>
-    <select name="pilih_kapster" required>
-      <option value="">-- Pilih Kapster --</option>
-      <option>Bayu</option>
-      <option>Joel</option>
-    </select>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" name="email" required>
+    </div>
 
-    <label>Pilih Layanan</label>
-    <select name="pilih_layanan" required>
-      <option value="">-- Pilih Layanan --</option>
-      <option>Regular Haircut - 50k</option>
-      <option>Coloring - 200k</option>
-      <option>Coloring - 300k</option>
-      <option>Coloring - 400k</option>
-    </select>
+    <div class="form-group">
+      <label>Pilih Kapster</label>
+      <select name="pilih_kapster" required>
+        <option value="">-- Pilih Kapster --</option>
+        <option>Bayu</option>
+        <option>Joel</option>
+      </select>
+    </div>
 
-    <label>Pilih Tanggal</label>
-    <input type="date" name="pilih_tanggal" id="tanggal" required>
+    <div class="form-group">
+      <label>Pilih Layanan</label>
+      <select name="pilih_layanan" required>
+        <option value="">-- Pilih Layanan --</option>
+        <option>Regular Haircut - 50k</option>
+        <option>Coloring - 200k</option>
+        <option>Coloring - 300k</option>
+        <option>Coloring - 400k</option>
+      </select>
+    </div>
 
-    <label>Pilih Jam</label>
-    <select name="pilih_jam" id="jam" required>
-      <option value="">-- Pilih Jam --</option>
-    </select>
+    <div class="form-group">
+      <label>Pilih Tanggal</label>
+      <input type="date" name="pilih_tanggal" id="tanggal" required>
+    </div>
+
+    <div class="form-group">
+      <label>Pilih Jam</label>
+      <select name="pilih_jam" id="jam" required>
+        <option value="">-- Pilih Jam --</option>
+      </select>
+    </div>
 
     <button type="submit">Booking Sekarang</button>
   </form>
@@ -131,23 +152,30 @@ const jamSelect = document.getElementById("jam");
 // Generate jam 11.00 - 23.00
 const jamList = [];
 for (let i = 11; i <= 23; i++) {
-  jamList.push(i.toString().padStart(2, '0') + ".00");
+  jamList.push(i.toString().padStart(2, "0") + ".00");
 }
 
 // Disable tanggal sebelum hari ini
 const today = new Date().toISOString().split("T")[0];
 tanggalInput.min = today;
 
-// Load booked data realtime
+// Ambil booking dari Sheet
 async function loadBooked() {
-  const res = await fetch(WEB_APP_URL);
-  return await res.json();
+  try {
+    const res = await fetch(WEB_APP_URL);
+    return await res.json();
+  } catch (e) {
+    console.error("Gagal load booked:", e);
+    return {};
+  }
 }
 
-// Update jam berdasarkan tanggal
+// Update jam
 async function updateJam() {
   const tanggal = tanggalInput.value;
   if (!tanggal) return;
+
+  jamSelect.innerHTML = `<option value="">Loading...</option>`;
 
   const bookedData = await loadBooked();
   const bookedJam = bookedData[tanggal] || [];
@@ -159,7 +187,7 @@ async function updateJam() {
     opt.value = jam;
 
     if (bookedJam.includes(jam)) {
-      opt.textContent = `${jam} (Booked)`;
+      opt.textContent = jam + " (Booked)";
       opt.disabled = true;
     } else {
       opt.textContent = jam;
@@ -171,7 +199,7 @@ async function updateJam() {
 
 tanggalInput.addEventListener("change", updateJam);
 
-// Submit form
+// Submit
 form.addEventListener("submit", e => {
   e.preventDefault();
   const formData = new FormData(form);
@@ -179,12 +207,13 @@ form.addEventListener("submit", e => {
   fetch(WEB_APP_URL, {
     method: "POST",
     body: formData
-  }).then(() => {
+  })
+  .then(() => {
     alert("Booking berhasil!");
     form.reset();
-  }).catch(() => {
-    alert("Gagal booking!");
-  });
+    jamSelect.innerHTML = `<option value="">-- Pilih Jam --</option>`;
+  })
+  .catch(() => alert("Gagal booking!"));
 });
 </script>
 
