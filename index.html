@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Booking De'Barba Barber</title>
 
-<!-- FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -15,13 +14,11 @@
   margin: 0;
   padding: 0;
 }
-
 body {
   background-color: #000 !important;
   color: #fff;
   padding: 20px;
 }
-
 .container {
   max-width: 720px;
   margin: auto;
@@ -30,41 +27,30 @@ body {
   border-radius: 22px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
-
 .logo {
   display: flex;
   justify-content: center;
   margin-bottom: 15px;
-  background-color: transparent;
-  padding: 10px 0;
 }
-
 .logo img {
   max-width: 140px;
-  width: 100%;
-  height: auto;
 }
-
 h1 {
   text-align: center;
   margin-bottom: 25px;
   font-size: 26px;
 }
-
 form {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-
 label {
   font-size: 14px;
   margin-bottom: 6px;
   display: block;
-  color: #fff;
 }
-
-input, select, textarea {
+input, select {
   width: 100%;
   padding: 14px;
   border-radius: 14px;
@@ -72,22 +58,11 @@ input, select, textarea {
   font-size: 15px;
   background-color: #222 !important;
   color: #fff !important;
-  appearance: none;
-  -webkit-appearance: none;
-  box-sizing: border-box;
   height: 50px;
-  line-height: 22px; 
 }
-
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
-
-input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px #222 inset !important;
-  -webkit-text-fill-color: #fff !important;
-}
-
 button {
   padding: 16px;
   background-color: #fff;
@@ -96,19 +71,18 @@ button {
   border-radius: 18px;
   font-size: 16px;
   cursor: pointer;
-  width: 100%;
   font-weight: bold;
-  transition: opacity 0.2s;
 }
-
 button:hover {
   opacity: 0.8;
 }
-
 .powered {
   margin-top: 25px;
   text-align: center;
   font-size: 13px;
+  color: #777;
+}
+option:disabled {
   color: #777;
 }
 </style>
@@ -124,7 +98,7 @@ button:hover {
 
   <h1>Booking De'Barba Barber</h1>
 
-  <form id="bookingForm" name="bookingForm">
+  <form id="bookingForm">
 
     <div>
       <label>Nama Lengkap</label>
@@ -145,7 +119,7 @@ button:hover {
       <label>Pilih Kapster</label>
       <select name="pilih_kapster" required>
         <option value="">-- Pilih Kapster --</option>
-        <option>Bayu</option>
+        <option>Bayu "Boy"</option>
         <option>Joel</option>
       </select>
     </div>
@@ -163,24 +137,17 @@ button:hover {
 
     <div>
       <label>Pilih Tanggal</label>
-      <input type="date" name="pilih_tanggal" required>
+      <input type="date" name="pilih_tanggal" id="pilih_tanggal" required>
     </div>
 
     <div>
       <label>Pilih Jam</label>
-      <select name="pilih_jam" required>
+      <select name="pilih_jam" id="pilih_jam" required>
         <option value="">-- Pilih Jam --</option>
-        <option>11.00 - 12.00</option>
-        <option>13.00 - 14.00</option>
-        <option>15.00 - 16.00</option>
-        <option>17.00 - 18.00</option>
-        <option>19.00 - 20.00</option>
-        <option>21.00 - 22.00</option>
       </select>
     </div>
 
     <button type="submit">Booking Sekarang</button>
-
   </form>
 
   <div class="powered">
@@ -192,6 +159,39 @@ button:hover {
 <script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz_0A1AuIIDTWaQ3U43GJ9dV7sTP3eJBETzyp5Ab3WcJh3udSqUo5YeIa0hZNwrbbcIiQ/exec";
 const WA_ADMIN = "6285706706607";
+
+/* SIMULASI DATA BOOKING
+   Nanti bisa diambil real dari Google Sheet */
+const bookedData = {
+  "2026-01-26": ["11.00", "13.00", "15.00"],
+  "2026-01-27": ["12.00", "14.00", "16.00"]
+};
+
+const inputTanggal = document.getElementById("pilih_tanggal");
+const selectJam = document.getElementById("pilih_jam");
+
+function generateJam(tanggal) {
+  selectJam.innerHTML = '<option value="">-- Pilih Jam --</option>';
+  let bookedJam = bookedData[tanggal] || [];
+
+  for (let jam = 11; jam <= 23; jam++) {
+    let formatJam = String(jam).padStart(2, '0') + ".00";
+    let option = document.createElement("option");
+    option.value = formatJam;
+    option.text = formatJam;
+
+    if (bookedJam.includes(formatJam)) {
+      option.disabled = true;
+      option.text += " (Booked)";
+    }
+
+    selectJam.appendChild(option);
+  }
+}
+
+inputTanggal.addEventListener("change", function () {
+  generateJam(this.value);
+});
 
 document.getElementById("bookingForm").addEventListener("submit", e => {
   e.preventDefault();
@@ -207,7 +207,6 @@ document.getElementById("bookingForm").addEventListener("submit", e => {
     pilih_jam: f.pilih_jam.value
   };
 
-  // Pesan WA dalam format list
   const pesan = 
 `Booking De' Barba Barbershop
 
@@ -218,10 +217,8 @@ Layanan: ${data.pilih_layanan}
 Tanggal: ${data.pilih_tanggal}
 Jam: ${data.pilih_jam}`;
 
-  // Buka WA Admin
   window.open(`https://wa.me/${WA_ADMIN}?text=${encodeURIComponent(pesan)}`, "_blank");
 
-  // Kirim data ke Google Sheet
   const formData = new FormData(f);
   fetch(WEB_APP_URL, {
     method: "POST",
