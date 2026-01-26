@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Booking De'Barba Barber</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
@@ -11,8 +11,6 @@
 * {
   box-sizing: border-box;
   font-family: 'Merriweather', serif;
-  margin: 0;
-  padding: 0;
 }
 
 body {
@@ -22,11 +20,11 @@ body {
 }
 
 .container {
-  max-width: 720px;
+  max-width: 600px;
   margin: auto;
   background: #111;
   padding: 30px;
-  border-radius: 22px;
+  border-radius: 20px;
 }
 
 h1 {
@@ -34,76 +32,46 @@ h1 {
   margin-bottom: 25px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
 label {
   font-size: 14px;
-  margin-bottom: 4px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 6px;
+  display: block;
 }
 
 input, select {
   width: 100%;
-  height: 52px;
-  padding: 0 14px;
-  border-radius: 14px;
+  padding: 12px;
+  border-radius: 12px;
   border: 1px solid #333;
   background: #222;
   color: #fff;
-  font-size: 15px;
-  line-height: 52px;
-  appearance: none;
-  -webkit-appearance: none;
-}
-
-select {
-  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  background-size: 18px;
-  padding-right: 42px;
-}
-
-input[type="date"] {
-  line-height: normal;
+  margin-bottom: 15px;
+  height: 48px;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
-  cursor: pointer;
-}
-
-input:focus, select:focus {
-  outline: none;
-  border-color: #aaa;
 }
 
 button {
-  margin-top: 10px;
-  padding: 16px;
+  padding: 14px;
   background: #fff;
   color: #000;
   border: none;
-  border-radius: 18px;
-  font-size: 16px;
-  cursor: pointer;
+  border-radius: 14px;
   font-weight: bold;
-}
-
-button:hover {
-  opacity: 0.85;
+  cursor: pointer;
 }
 
 option:disabled {
+  color: #999;
+}
+
+.powered {
+  text-align: center;
+  font-size: 12px;
   color: #777;
+  margin-top: 20px;
 }
 </style>
 </head>
@@ -114,137 +82,109 @@ option:disabled {
   <h1>Booking De'Barba Barber</h1>
 
   <form id="bookingForm">
+    <label>Nama Lengkap</label>
+    <input type="text" name="nama_lengkap" required>
 
-    <div class="field">
-      <label>Nama Lengkap</label>
-      <input type="text" name="nama_lengkap" required>
-    </div>
+    <label>Nomor Whatsapp</label>
+    <input type="text" name="nomor_whatsapp" required>
 
-    <div class="field">
-      <label>Nomor Whatsapp</label>
-      <input type="text" name="nomor_whatsapp" required pattern="[0-9]{10,15}">
-    </div>
+    <label>Email</label>
+    <input type="email" name="email" required>
 
-    <div class="field">
-      <label>Email</label>
-      <input type="email" name="email" required>
-    </div>
+    <label>Pilih Kapster</label>
+    <select name="pilih_kapster" required>
+      <option value="">-- Pilih Kapster --</option>
+      <option>Bayu</option>
+      <option>Joel</option>
+    </select>
 
-    <div class="field">
-      <label>Pilih Kapster</label>
-      <select name="pilih_kapster" required>
-        <option value="">-- Pilih Kapster --</option>
-        <option>Bayu "Boy"</option>
-        <option>Joel</option>
-      </select>
-    </div>
+    <label>Pilih Layanan</label>
+    <select name="pilih_layanan" required>
+      <option value="">-- Pilih Layanan --</option>
+      <option>Regular Haircut - 50k</option>
+      <option>Coloring - 200k</option>
+      <option>Coloring - 300k</option>
+      <option>Coloring - 400k</option>
+    </select>
 
-    <div class="field">
-      <label>Pilih Layanan</label>
-      <select name="pilih_layanan" required>
-        <option value="">-- Pilih Layanan --</option>
-        <option>Regular Haircut - 50k</option>
-        <option>Coloring - 200k</option>
-        <option>Coloring - 300k</option>
-        <option>Coloring - 400k</option>
-      </select>
-    </div>
+    <label>Pilih Tanggal</label>
+    <input type="date" name="pilih_tanggal" id="tanggal" required>
 
-    <div class="field">
-      <label>Pilih Tanggal</label>
-      <input type="date" name="pilih_tanggal" id="pilih_tanggal" required>
-    </div>
-
-    <div class="field">
-      <label>Pilih Jam</label>
-      <select name="pilih_jam" id="pilih_jam" required>
-        <option value="">-- Pilih Jam --</option>
-      </select>
-    </div>
+    <label>Pilih Jam</label>
+    <select name="pilih_jam" id="jam" required>
+      <option value="">-- Pilih Jam --</option>
+    </select>
 
     <button type="submit">Booking Sekarang</button>
   </form>
+
+  <div class="powered">Powered by De'Barba Barber © 2026</div>
 </div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyE_COU2g1rgzF5Ggn4tXzrpf6r4l7rFSdYH-eftvXYjgkzZL9sMrqR3WKMV3Ven9C2/exec";
-const WA_ADMIN = "6285706706607";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyE_COU2g1rgzF5Ggn4tXzrpf6r4l7rFSdYH-eftvXYjgkzZL9sMrqR3WKMV3Ven9C2/exec"; // GANTI
 
-const inputTanggal = document.getElementById("pilih_tanggal");
-const selectJam = document.getElementById("pilih_jam");
+const form = document.getElementById("bookingForm");
+const tanggalInput = document.getElementById("tanggal");
+const jamSelect = document.getElementById("jam");
 
-// disable tanggal sebelum hari ini
-const today = new Date().toISOString().split("T")[0];
-inputTanggal.setAttribute("min", today);
-
-let bookedData = {};
-
-async function loadBookingData() {
-  try {
-    const res = await fetch(WEB_APP_URL);
-    bookedData = await res.json();
-  } catch (err) {
-    console.error("Gagal load booking:", err);
-  }
+// Generate jam 11.00 - 23.00
+const jamList = [];
+for (let i = 11; i <= 23; i++) {
+  jamList.push(i.toString().padStart(2, '0') + ".00");
 }
 
-function generateJam(tanggal) {
-  selectJam.innerHTML = '<option value="">-- Pilih Jam --</option>';
-  let jamBooked = bookedData[tanggal] || [];
+// Disable tanggal sebelum hari ini
+const today = new Date().toISOString().split("T")[0];
+tanggalInput.min = today;
 
-  for (let jam = 11; jam <= 23; jam++) {
-    let jamStr = String(jam).padStart(2, '0') + ".00";
-    let opt = document.createElement("option");
-    opt.value = jamStr;
-    opt.text = jamStr;
+// Load booked data realtime
+async function loadBooked() {
+  const res = await fetch(WEB_APP_URL);
+  return await res.json();
+}
 
-    if (jamBooked.includes(jamStr)) {
+// Update jam berdasarkan tanggal
+async function updateJam() {
+  const tanggal = tanggalInput.value;
+  if (!tanggal) return;
+
+  const bookedData = await loadBooked();
+  const bookedJam = bookedData[tanggal] || [];
+
+  jamSelect.innerHTML = `<option value="">-- Pilih Jam --</option>`;
+
+  jamList.forEach(jam => {
+    const opt = document.createElement("option");
+    opt.value = jam;
+
+    if (bookedJam.includes(jam)) {
+      opt.textContent = `${jam} (Booked)`;
       opt.disabled = true;
-      opt.text += " (Booked)";
+    } else {
+      opt.textContent = jam;
     }
 
-    selectJam.appendChild(opt);
-  }
+    jamSelect.appendChild(opt);
+  });
 }
 
-inputTanggal.addEventListener("change", async function() {
-  await loadBookingData();
-  generateJam(this.value);
-});
+tanggalInput.addEventListener("change", updateJam);
 
-document.getElementById("bookingForm").addEventListener("submit", e => {
+// Submit form
+form.addEventListener("submit", e => {
   e.preventDefault();
-  const f = e.target;
+  const formData = new FormData(form);
 
-  const data = {
-    nama_lengkap: f.nama_lengkap.value,
-    nomor_whatsapp: f.nomor_whatsapp.value.replace(/\D/g,''),
-    email: f.email.value,
-    pilih_kapster: f.pilih_kapster.value,
-    pilih_layanan: f.pilih_layanan.value,
-    pilih_tanggal: f.pilih_tanggal.value,
-    pilih_jam: f.pilih_jam.value
-  };
-
-  const pesanWA = `
-Booking De'Barba Barber
-
-Nama: ${data.nama_lengkap}
-WA: ${data.nomor_whatsapp}
-Kapster: ${data.pilih_kapster}
-Layanan: ${data.pilih_layanan}
-Tanggal: ${data.pilih_tanggal}
-Jam: ${data.pilih_jam}
-`;
-
-  window.open(`https://wa.me/${WA_ADMIN}?text=${encodeURIComponent(pesanWA)}`, "_blank");
-
-  const formData = new FormData();
-  Object.keys(data).forEach(k => formData.append(k, data[k]));
-
-  fetch(WEB_APP_URL, { method:"POST", body: formData })
-    .then(() => alert("Booking berhasil!"))
-    .catch(() => alert("Gagal menyimpan booking"));
+  fetch(WEB_APP_URL, {
+    method: "POST",
+    body: formData
+  }).then(() => {
+    alert("Booking berhasil!");
+    form.reset();
+  }).catch(() => {
+    alert("Gagal booking!");
+  });
 });
 </script>
 
