@@ -8,63 +8,166 @@
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
-* { box-sizing: border-box; font-family: 'Merriweather', serif; margin: 0; padding: 0; }
-body { background: #000; color: #fff; padding: 20px; }
-.container { max-width: 720px; margin:auto; background: #111; padding:30px; border-radius:22px; }
-label { display:block; margin-bottom:6px; font-size:14px; }
-input, select { width:100%; padding:14px; border-radius:14px; border:1px solid #333; background:#222; color:#fff; font-size:15px; height:50px; }
-input[type="date"]::-webkit-calendar-picker-indicator { filter:invert(1); cursor:pointer; }
-button { width:100%; padding:16px; background:#fff; color:#000; border:none; border-radius:18px; font-size:16px; cursor:pointer; font-weight:bold; }
-button:hover { opacity:0.85; }
-.option-disabled { color:#777 !important; }
+* {
+  box-sizing: border-box;
+  font-family: 'Merriweather', serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  padding: 20px;
+}
+
+.container {
+  max-width: 720px;
+  margin: auto;
+  background: #111;
+  padding: 30px;
+  border-radius: 22px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+label {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+input, select {
+  width: 100%;
+  height: 52px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid #333;
+  background: #222;
+  color: #fff;
+  font-size: 15px;
+  line-height: 52px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+select {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px;
+  padding-right: 42px;
+}
+
+input[type="date"] {
+  line-height: normal;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #aaa;
+}
+
+button {
+  margin-top: 10px;
+  padding: 16px;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 18px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+option:disabled {
+  color: #777;
+}
 </style>
 </head>
+
 <body>
 
 <div class="container">
   <h1>Booking De'Barba Barber</h1>
+
   <form id="bookingForm">
 
-    <label>Nama Lengkap</label>
-    <input type="text" name="nama_lengkap" required>
+    <div class="field">
+      <label>Nama Lengkap</label>
+      <input type="text" name="nama_lengkap" required>
+    </div>
 
-    <label>Nomor Whatsapp</label>
-    <input type="text" name="nomor_whatsapp" required pattern="[0-9]{10,15}">
+    <div class="field">
+      <label>Nomor Whatsapp</label>
+      <input type="text" name="nomor_whatsapp" required pattern="[0-9]{10,15}">
+    </div>
 
-    <label>Email</label>
-    <input type="email" name="email" required>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" name="email" required>
+    </div>
 
-    <label>Pilih Kapster</label>
-    <select name="pilih_kapster" required>
-      <option value="">-- Pilih Kapster --</option>
-      <option>Bayu "Boy"</option>
-      <option>Joel</option>
-    </select>
+    <div class="field">
+      <label>Pilih Kapster</label>
+      <select name="pilih_kapster" required>
+        <option value="">-- Pilih Kapster --</option>
+        <option>Bayu "Boy"</option>
+        <option>Joel</option>
+      </select>
+    </div>
 
-    <label>Pilih Layanan</label>
-    <select name="pilih_layanan" required>
-      <option value="">-- Pilih Layanan --</option>
-      <option>Regular Haircut - 50k</option>
-      <option>Coloring - 200k</option>
-      <option>Coloring - 300k</option>
-      <option>Coloring - 400k</option>
-    </select>
+    <div class="field">
+      <label>Pilih Layanan</label>
+      <select name="pilih_layanan" required>
+        <option value="">-- Pilih Layanan --</option>
+        <option>Regular Haircut - 50k</option>
+        <option>Coloring - 200k</option>
+        <option>Coloring - 300k</option>
+        <option>Coloring - 400k</option>
+      </select>
+    </div>
 
-    <label>Pilih Tanggal</label>
-    <input type="date" id="pilih_tanggal" name="pilih_tanggal" required>
+    <div class="field">
+      <label>Pilih Tanggal</label>
+      <input type="date" name="pilih_tanggal" id="pilih_tanggal" required>
+    </div>
 
-    <label>Pilih Jam</label>
-    <select name="pilih_jam" id="pilih_jam" required>
-      <option value="">-- Pilih Jam --</option>
-    </select>
+    <div class="field">
+      <label>Pilih Jam</label>
+      <select name="pilih_jam" id="pilih_jam" required>
+        <option value="">-- Pilih Jam --</option>
+      </select>
+    </div>
 
-    <button type="submit">Booking Now</button>
-
+    <button type="submit">Booking Sekarang</button>
   </form>
 </div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwxNfbqld1ppXEOosDKJRJHmZlFsxwva1ogR4sw2EJgxW-4abZ73zDKEgOV4BJIO9tZ/exec"; // ganti dengan URL GAS kamu
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwxNfbqld1ppXEOosDKJRJHmZlFsxwva1ogR4sw2EJgxW-4abZ73zDKEgOV4BJIO9tZ/exec";
 const WA_ADMIN = "6285706706607";
 
 const inputTanggal = document.getElementById("pilih_tanggal");
@@ -74,33 +177,29 @@ const selectJam = document.getElementById("pilih_jam");
 const today = new Date().toISOString().split("T")[0];
 inputTanggal.setAttribute("min", today);
 
-// load data booking realtime
 let bookedData = {};
 
-// fetch ke GAS
 async function loadBookingData() {
   try {
-    const response = await fetch(WEB_APP_URL);
-    bookedData = await response.json(); // JSON list dari spreadsheet
+    const res = await fetch(WEB_APP_URL);
+    bookedData = await res.json();
   } catch (err) {
-    console.error("Gagal load data booking:", err);
+    console.error("Gagal load booking:", err);
   }
 }
 
-// generate jam otomatis
 function generateJam(tanggal) {
   selectJam.innerHTML = '<option value="">-- Pilih Jam --</option>';
   let jamBooked = bookedData[tanggal] || [];
 
   for (let jam = 11; jam <= 23; jam++) {
-    let jamStr = String(jam).padStart(2,'0') + ".00";
+    let jamStr = String(jam).padStart(2, '0') + ".00";
     let opt = document.createElement("option");
     opt.value = jamStr;
     opt.text = jamStr;
 
     if (jamBooked.includes(jamStr)) {
       opt.disabled = true;
-      opt.className = "option-disabled";
       opt.text += " (Booked)";
     }
 
@@ -108,14 +207,12 @@ function generateJam(tanggal) {
   }
 }
 
-// event tanggal berubah
 inputTanggal.addEventListener("change", async function() {
   await loadBookingData();
   generateJam(this.value);
 });
 
-// submit booking
-document.getElementById("bookingForm").addEventListener("submit", async function(e) {
+document.getElementById("bookingForm").addEventListener("submit", e => {
   e.preventDefault();
   const f = e.target;
 
@@ -129,9 +226,9 @@ document.getElementById("bookingForm").addEventListener("submit", async function
     pilih_jam: f.pilih_jam.value
   };
 
-  // buka WA admin
   const pesanWA = `
 Booking De'Barba Barber
+
 Nama: ${data.nama_lengkap}
 WA: ${data.nomor_whatsapp}
 Kapster: ${data.pilih_kapster}
@@ -139,15 +236,15 @@ Layanan: ${data.pilih_layanan}
 Tanggal: ${data.pilih_tanggal}
 Jam: ${data.pilih_jam}
 `;
+
   window.open(`https://wa.me/${WA_ADMIN}?text=${encodeURIComponent(pesanWA)}`, "_blank");
 
-  // kirim ke GAS
   const formData = new FormData();
   Object.keys(data).forEach(k => formData.append(k, data[k]));
 
   fetch(WEB_APP_URL, { method:"POST", body: formData })
-    .then(res => alert("Booking berhasil!"))
-    .catch(err => alert("Gagal simpan booking!"));
+    .then(() => alert("Booking berhasil!"))
+    .catch(() => alert("Gagal menyimpan booking"));
 });
 </script>
 
