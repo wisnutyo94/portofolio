@@ -204,6 +204,7 @@ function updateJam() {
 tanggalInput.addEventListener("change", updateJam);
 
 // Submit + WA Admin
+<script>
 form.addEventListener("submit", e => {
   e.preventDefault();
   const data = new FormData(form);
@@ -212,6 +213,7 @@ form.addEventListener("submit", e => {
     method: "POST",
     body: data
   })
+  .then(res => res.text())
   .then(() => {
     const nama = data.get("nama_lengkap");
     const wa = data.get("nomor_whatsapp");
@@ -219,20 +221,12 @@ form.addEventListener("submit", e => {
     const tanggal = data.get("pilih_tanggal");
     const jam = data.get("pilih_jam");
 
-    const text = `BOOKING BARU!\n\nNama: ${nama}\nWA: ${wa}\nLayanan: ${layanan}\nTanggal: ${tanggal}\nJam: ${jam}`;
+    const text = `BOOKING BARU DE'BARBA BARBER\n\nNama: ${nama}\nWA: ${wa}\nLayanan: ${layanan}\nTanggal: ${tanggal}\nJam: ${jam}`;
 
-    window.open(`https://wa.me/${NO_ADMIN_WA}?text=${encodeURIComponent(text)}`, "_blank");
-
-    alert("Booking berhasil!");
-    form.reset();
-    jamSelect.innerHTML = `<option value="">-- Pilih Jam --</option>`;
-
-    // Refresh cache setelah submit
-    initBooked();
+    // REDIRECT KE WHATSAPP ADMIN
+    window.location.href = `https://wa.me/${NO_ADMIN_WA}?text=${encodeURIComponent(text)}`;
   })
   .catch(() => alert("Gagal booking!"));
 });
-
-// LOAD DATA SAAT AWAL
-initBooked();
 </script>
+
