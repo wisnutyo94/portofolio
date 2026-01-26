@@ -33,24 +33,29 @@ h1 {
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 14px;
 }
 
 label {
-  font-size: 14px;
-  margin-bottom: 6px;
+  font-size: 13px;
+  margin-bottom: 5px;
   display: block;
 }
 
 input, select {
   width: 100%;
-  height: 48px;
+  height: 46px;          /* FIX tinggi seragam */
   padding: 10px 14px;
   border-radius: 12px;
   border: 1px solid #333;
   background: #222;
   color: #fff;
   font-size: 14px;
+  appearance: none;     /* FIX supaya date tidak aneh */
+}
+
+input[type="date"] {
+  line-height: 46px;    /* FIX supaya sama */
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -58,7 +63,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 select option:disabled {
-  color: #999;
+  color: #888;
 }
 
 button {
@@ -108,7 +113,7 @@ button {
       <label>Pilih Kapster</label>
       <select name="pilih_kapster" required>
         <option value="">-- Pilih Kapster --</option>
-        <option>Bayu</option>
+        <option>Bayu "Boy"</option>
         <option>Joel</option>
       </select>
     </div>
@@ -136,38 +141,32 @@ button {
       </select>
     </div>
 
-    <button type="submit">Booking Sekarang</button>
+    <button type="submit">Booking NOW</button>
   </form>
 
   <div class="powered">Powered by De'Barba Barber © 2026</div>
 </div>
 
 <script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyE_COU2g1rgzF5Ggn4tXzrpf6r4l7rFSdYH-eftvXYjgkzZL9sMrqR3WKMV3Ven9C2/exec"; // GANTI
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyE_COU2g1rgzF5Ggn4tXzrpf6r4l7rFSdYH-eftvXYjgkzZL9sMrqR3WKMV3Ven9C2/exec"; 
+const NO_ADMIN_WA = "6285706706607"; // GANTI NOMOR ADMIN
 
 const form = document.getElementById("bookingForm");
 const tanggalInput = document.getElementById("tanggal");
 const jamSelect = document.getElementById("jam");
 
-// Generate jam 11.00 - 23.00
+// Jam 11 - 23
 const jamList = [];
-for (let i = 11; i <= 23; i++) {
-  jamList.push(i.toString().padStart(2, "0") + ".00");
-}
+for (let i = 11; i <= 23; i++) jamList.push(i.toString().padStart(2,"0") + ".00");
 
-// Disable tanggal sebelum hari ini
+// Disable tanggal lalu
 const today = new Date().toISOString().split("T")[0];
 tanggalInput.min = today;
 
-// Ambil booking dari Sheet
+// Ambil booked
 async function loadBooked() {
-  try {
-    const res = await fetch(WEB_APP_URL);
-    return await res.json();
-  } catch (e) {
-    console.error("Gagal load booked:", e);
-    return {};
-  }
+  const res = await fetch(WEB_APP_URL);
+  return await res.json();
 }
 
 // Update jam
@@ -175,7 +174,7 @@ async function updateJam() {
   const tanggal = tanggalInput.value;
   if (!tanggal) return;
 
-  jamSelect.innerHTML = `<option value="">Loading...</option>`;
+  jamSelect.innerHTML = `<option>Loading...</option>`;
 
   const bookedData = await loadBooked();
   const bookedJam = bookedData[tanggal] || [];
@@ -199,16 +198,26 @@ async function updateJam() {
 
 tanggalInput.addEventListener("change", updateJam);
 
-// Submit
+// Submit + WA Admin
 form.addEventListener("submit", e => {
   e.preventDefault();
-  const formData = new FormData(form);
+  const data = new FormData(form);
 
   fetch(WEB_APP_URL, {
     method: "POST",
-    body: formData
+    body: data
   })
   .then(() => {
+    const nama = data.get("nama_lengkap");
+    const wa = data.get("nomor_whatsapp");
+    const layanan = data.get("pilih_layanan");
+    const tanggal = data.get("pilih_tanggal");
+    const jam = data.get("pilih_jam");
+
+    const text = `BOOKING BARU!\n\nNama: ${nama}\nWA: ${wa}\nLayanan: ${layanan}\nTanggal: ${tanggal}\nJam: ${jam}`;
+
+    window.open(`https://wa.me/${NO_ADMIN_WA}?text=${encodeURIComponent(text)}`, "_blank");
+
     alert("Booking berhasil!");
     form.reset();
     jamSelect.innerHTML = `<option value="">-- Pilih Jam --</option>`;
