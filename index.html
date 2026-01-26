@@ -149,7 +149,7 @@ button {
 
 <script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyE_COU2g1rgzF5Ggn4tXzrpf6r4l7rFSdYH-eftvXYjgkzZL9sMrqR3WKMV3Ven9C2/exec"; 
-const NO_ADMIN_WA = "6285706706607"; // GANTI NOMOR ADMIN
+const NO_ADMIN_WA = "6285706706607";
 
 const form = document.getElementById("bookingForm");
 const tanggalInput = document.getElementById("tanggal");
@@ -163,21 +163,26 @@ for (let i = 11; i <= 23; i++) jamList.push(i.toString().padStart(2,"0") + ".00"
 const today = new Date().toISOString().split("T")[0];
 tanggalInput.min = today;
 
-// Ambil booked
-async function loadBooked() {
-  const res = await fetch(WEB_APP_URL);
-  return await res.json();
+// CACHE DATA BOOKED
+let bookedCache = null;
+
+// Load booked sekali saja
+async function initBooked() {
+  try {
+    const res = await fetch(WEB_APP_URL);
+    bookedCache = await res.json();
+  } catch (e) {
+    console.error("Gagal load booked:", e);
+    bookedCache = {};
+  }
 }
 
-// Update jam
-async function updateJam() {
+// Update jam pakai cache
+function updateJam() {
   const tanggal = tanggalInput.value;
-  if (!tanggal) return;
+  if (!tanggal || !bookedCache) return;
 
-  jamSelect.innerHTML = `<option>Loading...</option>`;
-
-  const bookedData = await loadBooked();
-  const bookedJam = bookedData[tanggal] || [];
+  const bookedJam = bookedCache[tanggal] || [];
 
   jamSelect.innerHTML = `<option value="">-- Pilih Jam --</option>`;
 
@@ -221,10 +226,13 @@ form.addEventListener("submit", e => {
     alert("Booking berhasil!");
     form.reset();
     jamSelect.innerHTML = `<option value="">-- Pilih Jam --</option>`;
+
+    // Refresh cache setelah submit
+    initBooked();
   })
   .catch(() => alert("Gagal booking!"));
 });
-</script>
 
-</body>
-</html>
+// LOAD DATA SAAT AWAL
+initBooked();
+</script>
