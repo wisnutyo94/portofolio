@@ -166,7 +166,7 @@ button {
 
 <script>
 // ================= SETTING =================
-const IS_LIBUR = false; // true = TUTUP, false = BUKA
+const IS_LIBUR = true; // true = TUTUP, false = BUKA
 
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyE_COU2g1rgzF5Ggn4tXzrpf6r4l7rFSdYH-eftvXYjgkzZL9sMrqR3WKMV3Ven9C2/exec";
 const NO_ADMIN_WA = "6285706706607";
@@ -234,7 +234,7 @@ form.addEventListener("submit", async e => {
 
     alert("Booking berhasil! Klik OK untuk menuju Whatsapp Admin");
 
-    const text = `BOOKING BARU!\n\nNama: ${data.get("nama_lengkap")}\nWA: ${data.get("nomor_whatsapp")}\nKapster: ${data.get("pilih_kapster")}\nLayanan: ${data.get("pilih_layanan")}\nTanggal: ${data.get("pilih_tanggal")}\nJam: ${data.get("pilih_jam")}`;
+    const text = `Hello, Mau BOOKING De'Barba Barber !\n\nNama: ${data.get("nama_lengkap")}\nWA: ${data.get("nomor_whatsapp")}\nKapster: ${data.get("pilih_kapster")}\nLayanan: ${data.get("pilih_layanan")}\nTanggal: ${data.get("pilih_tanggal")}\nJam: ${data.get("pilih_jam")}`;
 
     const waLink = /Android|iPhone|iPad/i.test(navigator.userAgent)
       ? `https://wa.me/${NO_ADMIN_WA}?text=${encodeURIComponent(text)}`
